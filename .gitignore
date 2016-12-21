@@ -4,6 +4,12 @@
 ### User ###
 data/*
 !data/info
+.idea/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+bin/
+Makefile
 
 
 ### macOS ###

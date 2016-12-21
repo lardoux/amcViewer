@@ -17,9 +17,12 @@ void readFile (std::string userInput, int frame) {
 int main() {
 
     std::string userInput;
-    std::string line;
     std::string frame;
-    std::cout << "Please input your file's location : ";
+    //Test Sequence HDM_bd_cartwheelLHandStart1Reps
+    //readFile methode : absolu variable.  Adjust as needed.
+    std::cout << "Please input sequence number : ";
+    //ex : [sequence] [frame]
+    //   : 001_120 2
     std::cin >> userInput >> frame;
 
     readFile(userInput, std::stoi(frame));
