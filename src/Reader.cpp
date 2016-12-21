@@ -9,12 +9,11 @@
 
 
 bool DEBUG = false;
-const int frames = 1000;
+const int frames = 1000; //had to put a value...
 
 struct oneValue {
     float X;
 } ltibia[frames], rtibia[frames], lradius[frames], lwrist[frames], rradius[frames], rwrist[frames];
-
 
 struct twoValue {
     float X;
@@ -28,7 +27,6 @@ struct threeValue {
 
 } lfemur[frames], rfemur[frames], lowerback[frames], upperback[frames], thorax[frames], lhumerus[frames], rhumerus[frames];
 
-
 struct sixValue {
     float TX = 0;
     float TY = 0;
@@ -37,7 +35,6 @@ struct sixValue {
     float RY = 0;
     float RZ = 0;
 } root[frames];
-
 
 void Reader::ReadWholeFile_relatif(std::string userFile) {
     std::string line;
@@ -51,7 +48,6 @@ void Reader::ReadWholeFile_relatif(std::string userFile) {
         file.close();
     } else std::cout << "Unable to open file";
 }
-
 
 void Reader::ReadWholeFile_absolu(std::string userFile) {
     std::string line;
@@ -67,7 +63,7 @@ void Reader::ReadWholeFile_absolu(std::string userFile) {
     } else std::cout << "Unable to open file";
 }
 
-std::string Reader::ReadFrame(std::string userFile, int givenFrame) {
+void Reader::ReadFrame(std::string userFile, int givenFrame) {
 
     std::string line;
     std::string data = "";
@@ -80,12 +76,20 @@ std::string Reader::ReadFrame(std::string userFile, int givenFrame) {
         i--;
     }
 
-    i = givenFrame * 30;
-
-    i = 29;
+    //go to the specified frame
+    if (givenFrame != 0) {
+        i = givenFrame * 30;
+        while (i != 0) {
+            getline(file, line);
+            i--;
+        }
+    }
 
     //Jump the frame number
     getline(file, line);
+
+    //29 lines per frame
+    i = 29;
 
     //Get Frame Data
     while (i != 0) {
@@ -97,9 +101,10 @@ std::string Reader::ReadFrame(std::string userFile, int givenFrame) {
         std::string token;
 
         while (std::getline(ss, token, ' ')) {
-            if (token == "root") {  //Todo - array of struct to distinguishe multiple frames? vector?
+            if (token == "root") {
                 std::getline(ss, token, ' ');
                 root[givenFrame].TX = stof(token);
+
 
                 std::getline(ss, token, ' ');
                 root[givenFrame].TY = stof(token);
@@ -241,16 +246,31 @@ std::string Reader::ReadFrame(std::string userFile, int givenFrame) {
 
         i--;
     }
+    file.close();
+}
+
+void Reader::CompareTwoFrames(std::string userFile, int startFrame, int endFrame) {
+    ReadFrame(userFile, startFrame);
+    ReadFrame(userFile, endFrame);
+
 
     //print struct
-    std::cout << "root " << root[givenFrame].TX << " " << \
-    root[givenFrame].TY << " " << root[givenFrame].TZ << " " << \
-    root[givenFrame].RX << " " << root[givenFrame].RY << " " << \
-    root[givenFrame].RZ << " " << std::endl;
+    std::cout << "root " << root[startFrame].TX << " " << \
+    root[startFrame].TY << " " << root[startFrame].TZ << " " << \
+    root[startFrame].RX << " " << root[startFrame].RY << " " << \
+    root[startFrame].RZ << " " << std::endl;
 
-    std::cout << "lowerback " << lowerback[givenFrame].X << " " << \
-    lowerback[givenFrame].Y << " " << lowerback[givenFrame].Z << " " << std::endl;
+    std::cout << "lowerback " << lowerback[startFrame].X << " " << \
+    lowerback[startFrame].Y << " " << lowerback[startFrame].Z << " " << std::endl;
+
+    //print struct
+    std::cout << "root " << root[endFrame].TX << " " << \
+    root[endFrame].TY << " " << root[endFrame].TZ << " " << \
+    root[endFrame].RX << " " << root[endFrame].RY << " " << \
+    root[endFrame].RZ << " " << std::endl;
+
+    std::cout << "lowerback " << lowerback[endFrame].X << " " << \
+    lowerback[endFrame].Y << " " << lowerback[endFrame].Z << " " << std::endl;
 
 
-    return "return";
 }
