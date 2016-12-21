@@ -1,10 +1,16 @@
 
 # Created by https://www.gitignore.io/api/macos,intellij
 
+### User ###
+data/*
+!data/info
+
+
 ### macOS ###
 *.DS_Store
 .AppleDouble
 .LSOverride
+
 
 # Icon must end with two \r
 Icon

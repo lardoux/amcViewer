@@ -1,0 +1,5 @@
+Projet indexation de mouvements :
+Je vous propose ici de travailler avec des mouvements capturés.
+Comment indexer ce type de signal ? Quels types de descripteurs utiliser ?
+On pourra tester des solutions basiques utilisant une distance Euclidienne dans un premier temps.
+Base de données à utiliser : http://resources.mpi-inf.mpg.de/HDM05/cuts/index.html
