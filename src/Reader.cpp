@@ -9,24 +9,24 @@
 
 
 bool DEBUG = false;
-
+const int frames = 1000;
 
 struct oneValue {
     float X;
-} ltibia, rtibia, lradius, lwrist, rradius, rwrist;
+} ltibia[frames], rtibia[frames], lradius[frames], lwrist[frames], rradius[frames], rwrist[frames];
 
 
 struct twoValue {
     float X;
     float Y;
-} lclavicle, lhand, rclavicle, rhand;
+} lclavicle[frames], lhand[frames], rclavicle[frames], rhand[frames];
 
 struct threeValue {
     float X;
     float Y;
     float Z;
 
-} lfemur, rfemur, lowerback, upperback, thorax, lhumerus, rhumerus;
+} lfemur[frames], rfemur[frames], lowerback[frames], upperback[frames], thorax[frames], lhumerus[frames], rhumerus[frames];
 
 
 struct sixValue {
@@ -36,7 +36,7 @@ struct sixValue {
     float RX = 0;
     float RY = 0;
     float RZ = 0;
-} root;
+} root[frames];
 
 
 void Reader::ReadWholeFile_relatif(std::string userFile) {
@@ -97,17 +97,160 @@ std::string Reader::ReadFrame(std::string userFile, int givenFrame) {
         std::string token;
 
         while (std::getline(ss, token, ' ')) {
-            //if (token == "root") {  //Todo - array of struct to distinguishe multiple frames? vector?
-            if (keyword) { // if for test purposes only
-                std::cout << "Keyword : " + token << std::endl;
-                keyword = false;
+            if (token == "root") {  //Todo - array of struct to distinguishe multiple frames? vector?
+                std::getline(ss, token, ' ');
+                root[givenFrame].TX = stof(token);
+
+                std::getline(ss, token, ' ');
+                root[givenFrame].TY = stof(token);
+
+                std::getline(ss, token, ' ');
+                root[givenFrame].TZ = stof(token);
+
+                std::getline(ss, token, ' ');
+                root[givenFrame].RX = stof(token);
+
+                std::getline(ss, token, ' ');
+                root[givenFrame].RY = stof(token);
+
+                std::getline(ss, token, ' ');
+                root[givenFrame].RZ = stof(token);
+            } else if (token == "lowerback") {
+                std::getline(ss, token, ' ');
+                lowerback[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                lowerback[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                lowerback[givenFrame].Z = stof(token);
+            } else if (token == "upperback") {
+                std::getline(ss, token, ' ');
+                upperback[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                upperback[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                upperback[givenFrame].Z = stof(token);
+            } else if (token == "thorax") {
+                std::getline(ss, token, ' ');
+                thorax[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                thorax[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                thorax[givenFrame].Z = stof(token);
+            } else if (token == "rclavicle") {
+                std::getline(ss, token, ' ');
+                rclavicle[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                rclavicle[givenFrame].Y = stof(token);
+
+            } else if (token == "rhumerus") {
+                std::getline(ss, token, ' ');
+                rhumerus[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                rhumerus[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                rhumerus[givenFrame].Z = stof(token);
+
+            } else if (token == "rradius") {
+                std::getline(ss, token, ' ');
+                rradius[givenFrame].X = stof(token);
+
+            } else if (token == "rwrist") {
+                std::getline(ss, token, ' ');
+                rwrist[givenFrame].X = stof(token);
+
+            } else if (token == "rhand") {
+                std::getline(ss, token, ' ');
+                rhand[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                rhand[givenFrame].Y = stof(token);
+
+                //TODO - 5.11871e-014 , e value?
+            } else if (token == "lclavicle") {
+                std::getline(ss, token, ' ');
+                lclavicle[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                rhand[givenFrame].Y = stof(token);
+
+            } else if (token == "lhumerus") {
+                std::getline(ss, token, ' ');
+                lhumerus[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                lhumerus[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                lhumerus[givenFrame].Z = stof(token);
+
+            } else if (token == "lradius") {
+                std::getline(ss, token, ' ');
+                lradius[givenFrame].X = stof(token);
+
+            } else if (token == "lwrist") {
+                std::getline(ss, token, ' ');
+                lwrist[givenFrame].X = stof(token);
+
+            } else if (token == "lhand") {
+                std::getline(ss, token, ' ');
+                lhand[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                thorax[givenFrame].Y = stof(token);
+
+            } else if (token == "rfemur") {
+                std::getline(ss, token, ' ');
+                rfemur[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                rfemur[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                rfemur[givenFrame].Z = stof(token);
+
+            } else if (token == "rtibia") {
+                std::getline(ss, token, ' ');
+                rtibia[givenFrame].X = stof(token);
+
+
+            } else if (token == "lfemur") {
+                std::getline(ss, token, ' ');
+                lfemur[givenFrame].X = stof(token);
+
+                std::getline(ss, token, ' ');
+                lfemur[givenFrame].Y = stof(token);
+
+                std::getline(ss, token, ' ');
+                lfemur[givenFrame].Z = stof(token);
+
+            } else if (token == "ltibia") {
+                std::getline(ss, token, ' ');
+                ltibia[givenFrame].X = stof(token);
             }
-        }
+
+        }// while (std::getline(ss, token, ' '))
 
         i--;
-
     }
 
-    return data;
+    //print struct
+    std::cout << "root " << root[givenFrame].TX << " " << \
+    root[givenFrame].TY << " " << root[givenFrame].TZ << " " << \
+    root[givenFrame].RX << " " << root[givenFrame].RY << " " << \
+    root[givenFrame].RZ << " " << std::endl;
 
+    std::cout << "lowerback " << lowerback[givenFrame].X << " " << \
+    lowerback[givenFrame].Y << " " << lowerback[givenFrame].Z << " " << std::endl;
+
+
+    return "return";
 }
