@@ -13,4 +13,4 @@ set(SOURCE_FILES
         src/Reader.cpp
         src/Reader.h)
 
-add_executable(AMCViewer ${SOURCE_FILES})
+add_executable(amcViewer ${SOURCE_FILES})
